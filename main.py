@@ -5,7 +5,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 
-data_maestro = pd.read_csv("data\data_maestro.csv")
+data_maestro = pd.read_csv("data/data_maestro.csv")
 app = FastAPI()
 
 #Aqui se le llama con la misma ruta para obtener la funcion y llamarla a traves de uvicorn
