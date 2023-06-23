@@ -5,7 +5,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 
-data_maestro = pd.read_csv("MLOps\data\data_maestro.csv")
+data_maestro = pd.read_csv("data\data_maestro.csv")
 app = FastAPI()
 
 #Aqui se le llama con la misma ruta para obtener la funcion y llamarla a traves de uvicorn
@@ -229,7 +229,7 @@ def recomendacion(titulo:str):
     titulo = titulo.title()
 
     #se importa el dataset a utilizar
-    data_maestro = pd.read_csv("data/data_maestro.csv")
+    #data_maestro = pd.read_csv("data/data_maestro.csv")
 
     #se hace una copia del dataset originar para trabajar sobre este y evitar que se modifique
     data_modelo = data_maestro.copy()
