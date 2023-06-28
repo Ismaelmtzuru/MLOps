@@ -297,9 +297,11 @@ def recomendacion(titulo:str):
     distancias,indices = modelo.kneighbors(x_test.iloc[indice:indice + 1])
     indice_recomendaciones = indices[0][1:6]
     peliculas_recomendadas = data_maestro["title"].iloc[indice_recomendaciones].values    
+    resultado = {
+        "Lista de recomendación " : list(peliculas_recomendadas) 
+    }
     
-    
-    return list(peliculas_recomendadas)
+    return resultado
     
 
 
