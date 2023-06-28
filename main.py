@@ -32,7 +32,15 @@ def get_actor(nombre_actor:str):
     # Se establece el ppromedio por pelicula que ha conseguido
     promedio_retorno = actor_df["return"].sum() / len(actor_df)
 
-    return "El actor/actriz " + nombre_actor + " ha participado en " + str(actuado) + " filmaciones, el mismo ha conseguido un retorno total de " + str(exito) + ", con un promedio de " + str(promedio_retorno) + " por filmación"
+    resultado = {
+        "Nombre de actor o actriz " : nombre_actor,
+        "# de Participaciones ": actuado,
+        "Ëxito " : exito,
+        "Promedio de exito por filmación " : promedio_retorno 
+    }
+    
+
+    return resultado
     
 @app.get("/votos_titulo/{title}")
 def votos_titulo(title:str):
@@ -58,7 +66,14 @@ def votos_titulo(title:str):
             votos = int(titulo["vote_count"])
             promedio = float(titulo["vote_average"])
             año = int(titulo["release_year"])
-            return "La pelicula " + str(title).title() + " fue estrenada en el año " + str(año) + ". La misma cuenta con un total de " + str(votos) + " votos, con un promedio de valoración de " + str(promedio)
+            resultado = {
+                "Película" : title,
+                "Año estreno" : año,
+                "Total Votos" : votos,
+                "Promedio de Valoracion" : promedio
+            }
+            
+            return resultado
         else:
             return "Esta pelicula no cumple con al menos 2,000 valoraciones."
     else:
@@ -85,8 +100,14 @@ def score_titulo(title:str):
 
     # se establece el año en el cual fue publicada
     año = int(titulo["release_year"])
+    resultado = {
+        "Película" : title,
+        "Año de estreno ": año,
+        "Score ": pop
+    }
+    
 
-    return "La pelicula " + title + " fue estrenada en el año " + str(año) + " con un score de " + str(pop)  
+    return resultado  
 
 
 @app.get("/cantidad_filmaciones_dia/{dia}")
@@ -127,7 +148,13 @@ def cantidad_filmaciones_dia(dia:str):
         #se filtran las peliculas realizadas el día especificado
         estrenos_dia = data_maestro[data_maestro["release_date"].dt.day_name() == ingles]
         
-        return str(estrenos_dia.shape[0]) +  " películas fueron estrenadas en " + dia.lower()
+        resultado = {
+            "Día de la semana " : dia.title(),
+            "Películas estrenadas: " : estrenos_dia.shape[0]
+
+        }
+        
+        return resultado
 
 @app.get("/cantidad_filmaciones_mes/{mes}")
 def cantidad_filmaciones_mes(mes:str):
@@ -172,7 +199,13 @@ def cantidad_filmaciones_mes(mes:str):
         #Se filtran las filmaciones realizadas en el mes especificado
         estrenos_mes = data_maestro[data_maestro["release_date"].dt.month_name() == ingles]
         
-        return str(estrenos_mes.shape[0]) +  " Películas fueron estrenadas el mes de " + mes
+        resultado= {
+            "Mes consultado ": mes,
+            "Pelíclas estrenadas: " : estrenos_mes.shape[0]
+        }
+
+        
+        return resultado
 
 @app.get("/get_director/{nombre_director}")
 def get_director(nombre_director:str):
@@ -209,7 +242,7 @@ def get_director(nombre_director:str):
     
     #Se crea la cadena que contiene el mensaje descriptivo del director y su carrera
     cadena = "El director " + nombre_director + " ha generado " + str(exito) + " en toda su carrera"
-    
+
     return {
         "mensaje": cadena,
         "datos": mostrar_df.to_dict("index")
@@ -264,8 +297,10 @@ def recomendacion(titulo:str):
     distancias,indices = modelo.kneighbors(x_test.iloc[indice:indice + 1])
     indice_recomendaciones = indices[0][1:6]
     peliculas_recomendadas = data_maestro["title"].iloc[indice_recomendaciones].values    
-   
-    return list(peliculas_recomendadas) 
+    resultado = {
+        "Películas recomendadas ": peliculas_recomendadas
+    }
+    return resultado
     
 
 
