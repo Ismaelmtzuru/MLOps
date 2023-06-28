@@ -299,7 +299,7 @@ def recomendacion(titulo:str):
     peliculas_recomendadas = data_maestro["title"].iloc[indice_recomendaciones].values    
     resultado = dict(peliculas_recomendadas)
     
-    return resultado
+    return list(resultado)
     
 
 
